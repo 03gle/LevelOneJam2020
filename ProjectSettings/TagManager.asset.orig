@@ -5,8 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Carryable
+<<<<<<< HEAD
+  - Floor
+=======
   - Pressable
   - Pushable
+>>>>>>> 39585c39b78e29d104faa567de24eeb667e5d7e5
   layers:
   - Default
   - TransparentFX
