@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// using System.Collections;
+// using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         var rot = Quaternion.FromToRotation(transform.up, Vector3.up);
         rigidbody.AddTorque(new Vector3(rot.x, rot.y, rot.z) * counterRotationTorque);
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -57,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
                     jumpHeight * timeTracker,
                     transform.forward.z * jumpDistance * timeTracker
                     );
-
                 timeTracker = 0.4f;
             }
             // TODO: Add check to see if sock is grounded
@@ -67,4 +66,5 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+   
 }
