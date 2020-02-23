@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject setupObject;
+
     // Ground check variables
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -23,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {   
         rigidbody = GetComponent<Rigidbody>();
+        setupObject = GameObject.FindGameObjectWithTag("Setup");
     }
 
     // Frame-rate independent update
@@ -59,12 +62,26 @@ public class PlayerMovement : MonoBehaviour
                     );
                 timeTracker = 0.4f;
             }
-            // TODO: Add check to see if sock is grounded
-            if (Input.GetButtonDown("Jump")) //&& isGrounded)
+            
+            if (Input.GetButtonDown("Jump"))
             {
 
             }
         }
     }
-   
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (collision.gameObject.tag == "Win")
+            {
+                setupObject.GetComponent<SetupScript>().SendMessage("Win");
+            }
+        }
+
+
+    }
+
 }
