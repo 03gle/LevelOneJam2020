@@ -8,6 +8,8 @@ TagManager:
   - Pressable
   - Pushable
   - Setup
+  - obstacle
+  - Win
   layers:
   - Default
   - TransparentFX

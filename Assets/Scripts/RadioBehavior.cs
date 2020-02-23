@@ -12,13 +12,13 @@ public class RadioBehavior : MonoBehaviour
     public AudioClip news3;
 
     private List<AudioClip> soundFiles = new List<AudioClip>();
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     private int index = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
         soundFiles.Add(music1);
         soundFiles.Add(news1);
         soundFiles.Add(music2);
