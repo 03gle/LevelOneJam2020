@@ -6,7 +6,7 @@ public class SetupScript : MonoBehaviour
 {
     public GameObject spawnPoint;
     public GameObject player;
-    public bool reset = false;
+    private bool reset = false;
     private GameObject reference;
 
     // Start is called before the first frame update
@@ -23,5 +23,10 @@ public class SetupScript : MonoBehaviour
             reference.transform.position = spawnPoint.transform.position;
             reset = false;
         }
+    }
+
+    public void ResetPlayer()
+    {
+        reset = true;
     }
 }

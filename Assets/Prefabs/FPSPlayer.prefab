@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 8423872122424111803}
   - component: {fileID: 8423872122424111800}
   - component: {fileID: 8423872122424111802}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 8423872122909893744}
   - component: {fileID: 8423872122909893745}
   - component: {fileID: 8423872122909893750}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FPSPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
