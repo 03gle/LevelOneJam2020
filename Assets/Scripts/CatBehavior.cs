@@ -14,13 +14,15 @@ public class CatBehavior : MonoBehaviour
     public AudioClip meowSound1;
     public AudioClip meowSound2;
     public AudioClip meowSound3;
-    public GameObject setupObject;
+    public GameObject catFood;
 
     private bool playerDied = false;
     private GameObject player;
+    private GameObject setupObject;
     private Vector3 startPos;
     private float timeSinceLastCollision = 0.0f;
     private float timeSincePlayerDeath = 0.0f;
+    private bool isAggressive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +35,11 @@ public class CatBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player == null) player = GameObject.FindWithTag("Player");
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+            transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), Vector3.down);
+        }
 
         if (playerDied) timeSincePlayerDeath += Time.deltaTime;
         if (timeSincePlayerDeath > 1f)
@@ -43,10 +49,8 @@ public class CatBehavior : MonoBehaviour
         }
         timeSinceLastCollision = timeSinceLastCollision + Time.deltaTime;
 
-        //transform.up = Vector3.down;
-
         float distance = Vector3.Distance(transform.position, player.transform.position);
-        if (distance < watchingRange && player.transform.position.y < watchingHeight)
+        if (distance < watchingRange && player.transform.position.y < watchingHeight && isAggressive)
         {
             if (!audioSource.isPlaying)
             {
@@ -61,6 +65,17 @@ public class CatBehavior : MonoBehaviour
             }
             else GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 
+        } else if (!isAggressive)
+        {
+            float dist = Vector3.Distance(transform.position, catFood.transform.position);
+            transform.LookAt(new Vector3(catFood.transform.position.x, transform.position.y, catFood.transform.position.z), Vector3.down);
+            if (dist <= 1.5f)
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            } else
+            {
+                GetComponent<Rigidbody>().velocity = transform.forward * speed;
+            }
         }
     }
 
@@ -71,11 +86,12 @@ public class CatBehavior : MonoBehaviour
 
             foreach (ContactPoint contact in collision.contacts)
             {
-                if (collision.gameObject.layer == 10 && !playerDied)
+                if (collision.gameObject.layer == 10 && !playerDied && isAggressive)
                 {
                     audioSource.PlayOneShot(meowSound1);
                     playerDied = true;
                     setupObject.GetComponent<SetupScript>().SendMessage("ResetPlayer");
+                    GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
                     transform.position = startPos;
                     return;
                 }
@@ -83,5 +99,11 @@ public class CatBehavior : MonoBehaviour
         }
 
 
+    }
+
+    public void SetPassive()
+    {
+        audioSource.PlayOneShot(meowSound3);
+        isAggressive = false;
     }
 }

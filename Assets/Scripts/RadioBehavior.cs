@@ -23,6 +23,7 @@ public class RadioBehavior : MonoBehaviour
         soundFiles.Add(news1);
         soundFiles.Add(music2);
         soundFiles.Add(news2);
+        soundFiles.Add(music3);
         soundFiles.Add(news3);
     }
 

@@ -10,6 +10,8 @@ TagManager:
   - Setup
   - obstacle
   - Win
+  - room2
+  - Robot
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Floor
   - Wall
   - Player
-  - 
+  - Shelf
   - 
   - 
   - 

@@ -11,9 +11,10 @@ public class RobotBehaviour : MonoBehaviour
     public float suckingHeight;
     public LayerMask wallMask;
     public float counterRotationTorque = 100f;
-    public GameObject setupObject;
+    private GameObject setupObject;
 
     public AudioSource eatingSound;
+    public AudioSource staticAudioSource;
 
     private bool sockDetected = false;
     private bool playerDied = false;
@@ -29,16 +30,12 @@ public class RobotBehaviour : MonoBehaviour
     {
         //moveDirection = transform.forward;
         rigidbody = GetComponent<Rigidbody>();
-        GetComponent<Rigidbody>().velocity = transform.forward * speed;
+        //GetComponent<Rigidbody>().velocity = transform.forward * speed;
         setupObject = GameObject.FindGameObjectWithTag("Setup");
     }
 
     private void FixedUpdate()
     {
-
-        // Counter rotation to avoid toppling over
-        //var rot = Quaternion.FromToRotation(transform.up, Vector3.up);
-        //rigidbody.AddTorque(new Vector3(rot.x, rot.y, rot.z) * counterRotationTorque);
 
         if (sockDetected == true)
         {
@@ -80,6 +77,9 @@ public class RobotBehaviour : MonoBehaviour
         if (sockDetected && ((distance > detectionRange + 1) || player.transform.position.y > suckingHeight + 1))
         {
             sockDetected = false;
+            //GetComponent<Rigidbody>().velocity = transform.forward * speed;
+            Debug.Log("undetected");
+            StartCoroutine(Rotate(Vector3.up, 0, 0.2f));
         }
     }
 
@@ -141,5 +141,12 @@ public class RobotBehaviour : MonoBehaviour
         }
         
 
+    }
+
+    public void ActivateSuck()
+    {
+        //Debug.Log("Activating Suck");
+        GetComponent<Rigidbody>().velocity = transform.forward * speed;
+        staticAudioSource.Play();
     }
 }
